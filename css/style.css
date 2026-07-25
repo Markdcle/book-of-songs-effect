@@ -233,6 +233,22 @@ html[lang="en"] #landing-main .title-zh { display: none; }
   font-family: var(--kaiti); box-shadow: 0 6px 28px rgba(201, 162, 74, .5);
 }
 #s-thanks .content { text-align: center; }
+.contact-card {
+  width: 100%; max-width: 340px; margin: 26px auto 20px; padding: 18px;
+  border: 1px solid var(--gold-dim); border-radius: 16px;
+  background: rgba(22, 73, 76, .45);
+}
+.contact-title { color: var(--cream); font: 600 1rem var(--sans); }
+.contact-qr {
+  display: block; width: 100%; max-width: 210px; height: auto; margin: 14px auto 12px;
+  border-radius: 10px;
+}
+.contact-instruction { color: var(--text-dim); font: .84rem/1.5 var(--sans); }
+.contact-email {
+  display: inline-block; margin-top: 9px; color: var(--gold);
+  font: .9rem var(--sans); overflow-wrap: break-word;
+}
+#s-thanks #btn-again { margin-top: 0; }
 
 /* zoom overlay */
 #zoom-overlay {

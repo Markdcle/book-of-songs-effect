@@ -60,6 +60,9 @@
         online: "Your feelings have joined a 3,000-year dialogue between poetry and painting.",
         offline: "You appear to be offline — your response is safely saved on this device and will sync automatically later.",
         stats: "You are participant #{n}.",
+        contactTitle: "Contact the research team",
+        contactInstruction: "Long-press the QR code to recognize it in WeChat.",
+        qrAlt: "WeChat contact QR code",
         again: "Draw Again"
       },
       status: {
@@ -125,6 +128,9 @@
         online: "你的感受已加入一场跨越三千年的诗画对话。",
         offline: "当前似乎处于离线状态——回答已安全保存在本设备中，联网后会自动同步。",
         stats: "你是第 {n} 位知音",
+        contactTitle: "联系研究团队",
+        contactInstruction: "长按二维码，在微信中识别并添加好友。",
+        qrAlt: "微信联系二维码",
         again: "再抽一张"
       },
       status: {
@@ -184,6 +190,9 @@
     });
     document.querySelectorAll("[data-i18n-placeholder]").forEach(function (node) {
       node.setAttribute("placeholder", t(node.getAttribute("data-i18n-placeholder")));
+    });
+    document.querySelectorAll("[data-i18n-alt]").forEach(function (node) {
+      node.setAttribute("alt", t(node.getAttribute("data-i18n-alt")));
     });
   }
 

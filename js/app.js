@@ -9,14 +9,18 @@
   let round = null;
   function newRound() {
     const seg = SEGMENTS[Math.floor(Math.random() * SEGMENTS.length)];
-    // Randomise which painting appears as "Image A" (recorded for the paper).
-    const order = Math.random() < 0.5 ? ["literal", "narrative"] : ["narrative", "literal"];
+    // The candidate (narrative, Group C) is compared against one randomly
+    // drawn opponent group; which painting appears as "Image A" is also
+    // randomised. Both are recorded for the paper.
+    const opponent = CFG.OPPONENTS[Math.floor(Math.random() * CFG.OPPONENTS.length)];
+    const order = Math.random() < 0.5 ? ["narrative", opponent] : [opponent, "narrative"];
     return {
       segment: seg,
       keywords: [],
       customWord: "",
+      opponent,                   // "ancient" | "literal" | "baseline"
       order,                      // e.g. ["narrative","literal"] -> A=narrative
-      compareChoice: null,        // resolved to "literal" | "narrative" | "neither"
+      compareChoice: null,        // resolved to a group name | "neither"
       likertFit: 0,
       likertResonance: 0,
       openText: "",
@@ -31,26 +35,33 @@
     window.scrollTo(0, 0);
   }
 
-  const imgSrc = (kind, id) =>
-    (kind === "narrative" ? CFG.IMG_NARRATIVE : CFG.IMG_LITERAL).replace("{n}", id);
+  const imgSrc = (kind, id) => CFG.IMG[kind].replace("{n}", id);
 
   // ---------- Screen 1: blind draw ----------
   function enterDraw() {
-    document.querySelectorAll(".card-back").forEach(c => c.classList.remove("picked", "faded"));
+    document.querySelectorAll(".card-flip").forEach(c => c.classList.remove("picked", "faded"));
+    $("draw-banner").hidden = true;
     show("s-draw");
   }
-  document.querySelectorAll(".card-back").forEach(card => {
+  document.querySelectorAll(".card-flip").forEach(card => {
     card.addEventListener("click", () => {
-      if (card.classList.contains("picked")) return;
+      if (card.classList.contains("picked") || document.querySelector(".card-flip.picked")) return;
       round = newRound();
+      const s = round.segment;
+      // fill the front of the drawn slip + the reveal banner
+      card.querySelector(".front-poem-zh").textContent = s.title_zh;
+      card.querySelector(".front-poem-en").textContent = s.title_en;
+      $("draw-banner-zh").textContent = s.title_zh;
+      $("draw-banner-en").textContent = `${s.title_en} — “${s.title_short}”`;
       card.classList.add("picked");
-      document.querySelectorAll(".card-back").forEach(c => {
+      document.querySelectorAll(".card-flip").forEach(c => {
         if (c !== card) c.classList.add("faded");
       });
+      $("draw-banner").hidden = false;
       // preload both paintings for this segment while the flip animates
-      new Image().src = imgSrc("narrative", round.segment.id);
-      new Image().src = imgSrc("literal", round.segment.id);
-      setTimeout(enterFeel, 750);
+      new Image().src = imgSrc("narrative", s.id);
+      new Image().src = imgSrc(round.opponent, s.id);
+      setTimeout(enterFeel, 2400);
     });
   });
 
@@ -178,6 +189,7 @@
       poem_part: s.part,
       keywords: round.keywords,
       custom_word: round.customWord,
+      opponent_group: round.opponent,    // which group narrative was pitted against
       shown_first: round.order[0],       // what "Image A" actually was
       compare_choice: round.compareChoice,
       likert_fit: round.likertFit,
@@ -220,7 +232,7 @@
     // Preload all paintings in the background so the app works fully offline
     // afterwards (hotel-WiFi-then-venue scenario). Gentle: 1 image per 250 ms.
     let n = 1, kind = 0;
-    const kinds = ["narrative", "literal"];
+    const kinds = ["narrative", "literal", "ancient", "baseline"];
     const timer = setInterval(() => {
       if (n > 36 && ++kind >= kinds.length) { clearInterval(timer); return; }
       if (n > 36) n = 1;

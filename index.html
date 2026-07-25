@@ -4,10 +4,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
-<meta name="theme-color" content="#1a1712">
+<meta name="theme-color" content="#0e2a2c">
 <title>Feel the Poetry · 诗画无界 — DH2026</title>
 <meta name="description" content="Can an image cross the language barrier? Draw a poem from the Shijing, feel an AI painting, and join live cross-cultural research.">
 <link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="css/fonts.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="icon" href="assets/icon-192.png">
 </head>
@@ -24,7 +25,11 @@
       <p class="lede">Three thousand years ago, Chinese poets sang of love, longing and war in the <i>Shijing</i> (诗经), the Book of Songs.</p>
       <p class="lede">We asked AI to <b>paint</b> these untranslatable poems — no words, only feeling. Your impressions become live data in our research.</p>
       <button class="btn-primary" id="btn-start">Draw Your Poem<span class="btn-zh">抽一张诗签</span></button>
-      <p class="consent">Anonymous · about 2 minutes · no knowledge of Chinese needed.<br>By taking part you agree that your answers may be used in academic research.</p>
+      <div class="research-note">
+        <p class="rn-title">Academic Research Study · 学术研究</p>
+        <p>This exhibit is part of an academic research project (DH2026). Participation is <b>fully anonymous</b> — we collect no names, accounts, or any personally identifying information. Responses are stored securely, analysed only in aggregate, and may be reported in research publications. You may stop at any time.</p>
+      </div>
+      <p class="consent">Anonymous · about 2 minutes · no knowledge of Chinese needed.<br>By taking part you consent to the research use described above.</p>
       <p class="queue-note" id="queue-note" hidden></p>
     </div>
   </section>
@@ -35,9 +40,41 @@
       <h2 class="h2">The poem chooses you</h2>
       <p class="hint">Tap one card — a 3,000-year-old verse is waiting behind it.</p>
       <div class="card-row" id="card-row">
-        <button class="card-back" data-card="0" aria-label="card 1"><span class="card-seal">诗</span></button>
-        <button class="card-back" data-card="1" aria-label="card 2"><span class="card-seal">经</span></button>
-        <button class="card-back" data-card="2" aria-label="card 3"><span class="card-seal">画</span></button>
+        <button class="card-flip" data-card="0" aria-label="card 1">
+          <div class="card-inner">
+            <div class="card-face card-face-back"><span class="card-seal">诗</span></div>
+            <div class="card-face card-face-front">
+              <span class="front-seal">签</span>
+              <p class="front-poem-zh"></p>
+              <p class="front-poem-en"></p>
+            </div>
+          </div>
+        </button>
+        <button class="card-flip" data-card="1" aria-label="card 2">
+          <div class="card-inner">
+            <div class="card-face card-face-back"><span class="card-seal">经</span></div>
+            <div class="card-face card-face-front">
+              <span class="front-seal">签</span>
+              <p class="front-poem-zh"></p>
+              <p class="front-poem-en"></p>
+            </div>
+          </div>
+        </button>
+        <button class="card-flip" data-card="2" aria-label="card 3">
+          <div class="card-inner">
+            <div class="card-face card-face-back"><span class="card-seal">画</span></div>
+            <div class="card-face card-face-front">
+              <span class="front-seal">签</span>
+              <p class="front-poem-zh"></p>
+              <p class="front-poem-en"></p>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div class="draw-banner" id="draw-banner" hidden>
+        <p class="draw-banner-kicker">The poem has chosen you</p>
+        <p class="draw-banner-zh" id="draw-banner-zh"></p>
+        <p class="draw-banner-en" id="draw-banner-en"></p>
       </div>
     </div>
   </section>
@@ -72,7 +109,7 @@
   <!-- ===== Screen 4: Compare B vs C ===== -->
   <section class="screen" id="s-compare">
     <div class="content">
-      <p class="step-tag">③ Two AIs painted this poem</p>
+      <p class="step-tag">③ Two visions of this poem</p>
       <h2 class="h2">Which one better captures its <i>yijing</i> (意境)?</h2>
       <div class="compare-grid">
         <figure class="compare-item" data-side="first">

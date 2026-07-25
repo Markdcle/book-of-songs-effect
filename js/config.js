@@ -5,9 +5,16 @@ window.APP_CONFIG = {
   // in the browser's localStorage queue and can be exported with ?export.
   ENDPOINT_URL: "https://script.google.com/macros/s/AKfycbwEIiZ__BLB3-STcS3NemUhQap7zLaRKYL6pcGxg5sLssy2ioJXG7Q48Eb1Y4isH_FEDQ/exec",
 
-  // Image path templates; {n} is the segment id 1-36.
-  IMG_NARRATIVE: "assets/img/c/C{n}.webp", // Group C — narrative/affective
-  IMG_LITERAL:   "assets/img/b/B{n}.webp", // Group B — literal/semantic
+  // Image path templates per stimulus group; {n} is the segment id 1-36.
+  // The Narrative group (C) is the candidate method; every draw pits it
+  // against one randomly chosen opponent from the other three groups.
+  IMG: {
+    narrative: "assets/img/c/C{n}.webp", // Group C — narrative/affective (candidate)
+    literal:   "assets/img/b/B{n}.webp", // Group B — literal/semantic
+    ancient:   "assets/img/a/A{n}.webp", // Group A — classical ink-painting style
+    baseline:  "assets/img/d/D{n}.webp"  // Group D — analytic diagram baseline
+  },
+  OPPONENTS: ["ancient", "literal", "baseline"],
 
   // Emotion keyword chips shown on the "What do you feel?" screen.
   KEYWORDS: [

@@ -1,9 +1,10 @@
 /* sw.js — cache-first PWA worker: after one online visit the whole app
  * (code + all 72 paintings) works fully offline. */
-const CACHE = "book-of-songs-v1";
+const CACHE = "book-of-songs-v2";
 const CORE = [
   "./",
   "index.html",
+  "css/fonts.css",
   "css/style.css",
   "js/config.js",
   "js/segments.js",

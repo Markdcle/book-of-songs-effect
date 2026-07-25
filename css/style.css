@@ -16,7 +16,7 @@
   --text-dim: #9fbcb9;
   --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   --sans: "Inter", "Avenir Next", "Segoe UI", system-ui, -apple-system, "PingFang SC", "Noto Sans SC", sans-serif;
-  --kaiti: "Kaiti SC", KaiTi, "STKaiti", "Noto Serif SC", serif;
+  --kaiti: "PoemKai", "Kaiti SC", KaiTi, "STKaiti", "Noto Serif SC", serif;
   --safe-b: env(safe-area-inset-bottom, 0px);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -84,9 +84,16 @@ body {
 .btn-choice.selected { background: var(--gold); border-color: var(--gold); color: #16494c; font-weight: 700; }
 
 /* ---- blind draw: flipping poetry slips ---- */
+#s-draw .content {
+  flex: 1; margin: 0;
+  display: flex; flex-direction: column; justify-content: space-evenly;
+}
+#s-draw .card-row { margin-top: 0; }
+#s-draw .h2 { margin-bottom: 10px; }
+#s-draw .hint { margin-bottom: 0; }
 .card-row { display: flex; gap: 14px; justify-content: center; margin-top: 30px; perspective: 1000px; }
 .card-flip {
-  width: 30%; max-width: 132px; aspect-ratio: 5/7;
+  width: 33%; max-width: 148px; aspect-ratio: 5/7;
   border: none; background: none; padding: 0; cursor: pointer;
   transition: transform .45s ease, opacity .45s ease, width .5s ease .1s, max-width .5s ease .1s;
 }
@@ -176,9 +183,10 @@ body {
 .verse-title-zh { color: var(--gold-bright); font-family: var(--kaiti); font-size: 1.2rem; margin: 6px 0 18px; }
 .verse-ancient {
   font-family: var(--kaiti);
-  font-size: 1.45rem; line-height: 2; color: var(--paper); white-space: pre-line; margin-bottom: 18px;
+  font-size: 1.45rem; line-height: 2; color: var(--paper); white-space: pre-line;
+  padding-top: 18px; border-top: 1px solid var(--gold-dim);
 }
-.verse-translation { font-family: var(--serif); color: var(--text-dim); font-style: italic; font-size: 1.06rem; white-space: pre-line; line-height: 1.6; }
+.verse-translation { font-family: var(--serif); color: var(--text-dim); font-style: italic; font-size: 1.06rem; white-space: pre-line; line-height: 1.6; margin-bottom: 20px; }
 
 /* compare */
 .compare-grid { display: flex; flex-direction: column; gap: 14px; margin-top: 14px; }

@@ -70,7 +70,7 @@ body {
   color: var(--text-dim); font: .82rem var(--sans); cursor: pointer;
 }
 #language-gate[hidden], #landing-main[hidden] { display: none; }
-html[lang="zh-CN"] .btn-zh { display: none; }
+html[lang="en"] #landing-main .title-zh { display: none; }
 
 /* research notice box (landing) */
 .research-note {
@@ -85,7 +85,7 @@ html[lang="zh-CN"] .btn-zh { display: none; }
 .h2 { font-family: var(--serif); font-size: 1.75rem; font-weight: 600; margin-bottom: 10px; line-height: 1.2; }
 .hint { color: var(--text-dim); font-size: .95rem; margin-bottom: 16px; }
 .step-tag { color: var(--gold); font-size: .82rem; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 14px; font-weight: 600; }
-.zh-inline { color: var(--gold-bright); font-family: var(--kaiti); }
+
 
 /* buttons */
 .btn-primary {
@@ -98,7 +98,6 @@ html[lang="zh-CN"] .btn-zh { display: none; }
 }
 .btn-primary:active { transform: scale(.97); }
 .btn-primary:disabled { opacity: .35; box-shadow: none; }
-.btn-zh { display: block; font-size: .78rem; font-weight: 400; opacity: .85; letter-spacing: .35em; margin-top: 3px; font-family: var(--kaiti); }
 .btn-ghost { display: block; margin: 14px auto 0; background: none; border: 1px solid var(--text-dim); color: var(--text-dim); border-radius: 999px; padding: 9px 20px; font-size: .92rem; cursor: pointer; }
 .btn-choice { background: var(--surface); color: var(--text); border: 1.5px solid var(--gold-dim); border-radius: 999px; padding: 10px 14px; font-size: .92rem; cursor: pointer; width: 100%; }
 .btn-choice.selected { background: var(--gold); border-color: var(--gold); color: #16494c; font-weight: 700; }

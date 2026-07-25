@@ -56,9 +56,9 @@
         <p class="title-zh">诗画无界</p>
         <p class="lede" data-i18n-html="landing.intro1">Three thousand years ago, Chinese poets sang of love, longing and war in the <i>Shijing</i> (诗经), the Book of Songs.</p>
         <p class="lede" data-i18n-html="landing.intro2">We asked AI to <b>paint</b> these untranslatable poems — no words, only feeling. Your impressions become live data in our research.</p>
-        <button class="btn-primary" id="btn-start"><span data-i18n="landing.start">Draw Your Poem</span><span class="btn-zh">抽一张诗签</span></button>
+        <button class="btn-primary" id="btn-start"><span data-i18n="landing.start">Draw Your Poem</span></button>
         <div class="research-note">
-          <p class="rn-title" data-i18n="landing.researchTitle">Academic Research Study · 学术研究</p>
+          <p class="rn-title" data-i18n="landing.researchTitle">Academic Research Study</p>
           <p data-i18n-html="landing.researchBody">This exhibit is part of an academic research project (DH2026). Participation is <b>fully anonymous</b> — we collect no names, accounts, or any personally identifying information. Responses are stored securely, analysed only in aggregate, and may be reported in research publications. You may stop at any time.</p>
         </div>
         <p class="consent" data-i18n-html="landing.consent">Anonymous · about 2 minutes · no knowledge of Chinese needed.<br>By taking part you consent to the research use described above.</p>
@@ -123,7 +123,7 @@
       <p class="hint" data-i18n="feel.hint">Pick 3–5 words that match your impression.</p>
       <div class="chips" id="chips"></div>
       <input type="text" id="custom-word" class="text-input" maxlength="30" placeholder="…or your own word (optional)" data-i18n-placeholder="feel.custom">
-      <button class="btn-primary" id="btn-feel-next" disabled><span data-i18n="feel.next">Reveal the Poem</span><span class="btn-zh">揭示原诗</span></button>
+      <button class="btn-primary" id="btn-feel-next" disabled><span data-i18n="feel.next">Reveal the Poem</span></button>
     </div>
   </section>
 
@@ -137,7 +137,7 @@
         <p class="verse-translation" id="verse-translation"></p>
         <p class="verse-ancient" id="verse-ancient"></p>
       </div>
-      <button class="btn-primary" id="btn-compare-next"><span data-i18n="reveal.next">Compare Two Visions</span><span class="btn-zh">比较两种画意</span></button>
+      <button class="btn-primary" id="btn-compare-next"><span data-i18n="reveal.next">Compare Two Visions</span></button>
     </div>
   </section>
 
@@ -145,7 +145,7 @@
   <section class="screen" id="s-compare">
     <div class="content">
       <p class="step-tag" data-i18n="compare.step">③ Two visions of this poem</p>
-      <h2 class="h2" data-i18n-html="compare.title">Which one better captures its <i>yijing</i> (意境)?</h2>
+      <h2 class="h2" data-i18n-html="compare.title">Which image better captures the poem’s poetic mood and imagery?</h2>
       <div class="compare-grid">
         <figure class="compare-item" data-side="first">
           <img id="cmp-img-1" alt="Painting A">
@@ -160,16 +160,16 @@
 
       <div id="likert-block" hidden>
         <div class="likert">
-          <p class="likert-q" data-i18n-html="compare.fit">How well does this image merge scene and feeling? <span class="zh-inline">情景交融</span></p>
+          <p class="likert-q" data-i18n-html="compare.fit">How well does this image merge scene and feeling?</p>
           <div class="likert-row" id="likert-fit"></div>
           <div class="likert-labels"><span data-i18n="compare.notAtAll">Not at all</span><span data-i18n="compare.perfectly">Perfectly</span></div>
         </div>
         <div class="likert">
-          <p class="likert-q" data-i18n-html="compare.resonance">How strongly does it resonate with you, across cultures? <span class="zh-inline">文化共鸣</span></p>
+          <p class="likert-q" data-i18n-html="compare.resonance">How strongly does it resonate with you, across cultures?</p>
           <div class="likert-row" id="likert-resonance"></div>
           <div class="likert-labels"><span data-i18n="compare.notAtAll">Not at all</span><span data-i18n="compare.deeply">Deeply</span></div>
         </div>
-        <button class="btn-primary" id="btn-compare-done" disabled><span data-i18n="compare.next">Almost Done</span><span class="btn-zh">下一步</span></button>
+        <button class="btn-primary" id="btn-compare-done" disabled><span data-i18n="compare.next">Almost Done</span></button>
       </div>
     </div>
   </section>
@@ -186,7 +186,7 @@
         <button class="chip" data-val="some" data-i18n="reflect.some">Somewhat</button>
         <button class="chip" data-val="familiar" data-i18n="reflect.familiar">Familiar</button>
       </div>
-      <button class="btn-primary" id="btn-submit"><span data-i18n="reflect.submit">Submit</span><span class="btn-zh">提交</span></button>
+      <button class="btn-primary" id="btn-submit"><span data-i18n="reflect.submit">Submit</span></button>
       <p class="hint" id="submit-status"></p>
     </div>
   </section>
@@ -198,7 +198,7 @@
       <h2 class="h2" data-i18n="thanks.title">Thank you!</h2>
       <p class="lede" id="thanks-line">Your feelings have joined a 3,000-year dialogue between poetry and painting.</p>
       <p class="hint" id="thanks-stats"></p>
-      <button class="btn-primary" id="btn-again"><span data-i18n="thanks.again">Draw Again</span><span class="btn-zh">再抽一张</span></button>
+      <button class="btn-primary" id="btn-again"><span data-i18n="thanks.again">Draw Again</span></button>
     </div>
   </section>
 

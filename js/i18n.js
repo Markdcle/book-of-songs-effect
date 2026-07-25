@@ -4,7 +4,7 @@
 
   var STRINGS = {
     en: {
-      pageTitle: "Feel the Poetry · 诗画无界 — DH2026",
+      pageTitle: "Feel the Poetry — DH2026",
       language: { change: "← Change language" },
       landing: {
         kicker: "DH2026 · LIVE EXPERIMENT",
@@ -12,7 +12,7 @@
         intro1: "Three thousand years ago, Chinese poets sang of love, longing and war in the <i>Shijing</i> (诗经), the Book of Songs.",
         intro2: "We asked AI to <b>paint</b> these untranslatable poems — no words, only feeling. Your impressions become live data in our research.",
         start: "Draw Your Poem",
-        researchTitle: "Academic Research Study · 学术研究",
+        researchTitle: "Academic Research Study",
         researchBody: "This exhibit is part of an academic research project (DH2026). Participation is <b>fully anonymous</b> — we collect no names, accounts, or any personally identifying information. Responses are stored securely, analysed only in aggregate, and may be reported in research publications. You may stop at any time.",
         consent: "Anonymous · about 2 minutes · no knowledge of Chinese needed.<br>By taking part you consent to the research use described above."
       },
@@ -34,12 +34,12 @@
       },
       compare: {
         step: "③ Two visions of this poem",
-        title: "Which one better captures its <i>yijing</i> (意境)?",
+        title: "Which image better captures the poem’s poetic mood and imagery?",
         imageA: "Image A captures it better",
         imageB: "Image B captures it better",
         neither: "Neither quite works",
-        fit: "How well does this image merge scene and feeling? <span class=\"zh-inline\">情景交融</span>",
-        resonance: "How strongly does it resonate with you, across cultures? <span class=\"zh-inline\">文化共鸣</span>",
+        fit: "How well does this image merge scene and feeling?",
+        resonance: "How strongly does it resonate with you, across cultures?",
         notAtAll: "Not at all",
         perfectly: "Perfectly",
         deeply: "Deeply",
@@ -59,7 +59,7 @@
         title: "Thank you!",
         online: "Your feelings have joined a 3,000-year dialogue between poetry and painting.",
         offline: "You appear to be offline — your response is safely saved on this device and will sync automatically later.",
-        stats: "You are participant #{n}. 你是第 {n} 位知音",
+        stats: "You are participant #{n}.",
         again: "Draw Again"
       },
       status: {

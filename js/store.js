@@ -84,7 +84,7 @@
     const n = pendingCount();
     if (n > 0) {
       el.hidden = false;
-      el.textContent = `● ${n} response(s) saved on this device — they will sync automatically when online.`;
+      el.textContent = window.I18N.t("status.queued", { n });
     } else {
       el.hidden = true;
     }
@@ -114,5 +114,5 @@
     }
   });
 
-  window.Store = { submit, flush, pendingCount, exportQueue };
+  window.Store = { submit, flush, pendingCount, exportQueue, refreshQueueNote: updateQueueNote };
 })();

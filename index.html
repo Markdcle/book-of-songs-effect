@@ -38,18 +38,32 @@
   <section class="screen active" id="s-landing">
     <div class="ink-bg" aria-hidden="true"></div>
     <div class="content">
-      <p class="kicker">DH2026 · LIVE EXPERIMENT</p>
-      <h1 class="title">Feel the Poetry</h1>
-      <p class="title-zh">诗画无界</p>
-      <p class="lede">Three thousand years ago, Chinese poets sang of love, longing and war in the <i>Shijing</i> (诗经), the Book of Songs.</p>
-      <p class="lede">We asked AI to <b>paint</b> these untranslatable poems — no words, only feeling. Your impressions become live data in our research.</p>
-      <button class="btn-primary" id="btn-start">Draw Your Poem<span class="btn-zh">抽一张诗签</span></button>
-      <div class="research-note">
-        <p class="rn-title">Academic Research Study · 学术研究</p>
-        <p>This exhibit is part of an academic research project (DH2026). Participation is <b>fully anonymous</b> — we collect no names, accounts, or any personally identifying information. Responses are stored securely, analysed only in aggregate, and may be reported in research publications. You may stop at any time.</p>
+      <div class="language-gate" id="language-gate">
+        <p class="kicker">DH2026 · LIVE EXPERIMENT</p>
+        <h1 class="title">Feel the Poetry</h1>
+        <p class="title-zh">诗画无界</p>
+        <p class="language-prompt">Choose your language<span>请选择语言</span></p>
+        <div class="language-options">
+          <button class="language-choice" data-lang="en">English</button>
+          <button class="language-choice" data-lang="zh">中文</button>
+        </div>
       </div>
-      <p class="consent">Anonymous · about 2 minutes · no knowledge of Chinese needed.<br>By taking part you consent to the research use described above.</p>
-      <p class="queue-note" id="queue-note" hidden></p>
+
+      <div id="landing-main" hidden>
+        <button class="language-back" id="btn-language-back" data-i18n="language.change">← Change language</button>
+        <p class="kicker" data-i18n="landing.kicker">DH2026 · LIVE EXPERIMENT</p>
+        <h1 class="title" data-i18n="landing.title">Feel the Poetry</h1>
+        <p class="title-zh">诗画无界</p>
+        <p class="lede" data-i18n-html="landing.intro1">Three thousand years ago, Chinese poets sang of love, longing and war in the <i>Shijing</i> (诗经), the Book of Songs.</p>
+        <p class="lede" data-i18n-html="landing.intro2">We asked AI to <b>paint</b> these untranslatable poems — no words, only feeling. Your impressions become live data in our research.</p>
+        <button class="btn-primary" id="btn-start"><span data-i18n="landing.start">Draw Your Poem</span><span class="btn-zh">抽一张诗签</span></button>
+        <div class="research-note">
+          <p class="rn-title" data-i18n="landing.researchTitle">Academic Research Study · 学术研究</p>
+          <p data-i18n-html="landing.researchBody">This exhibit is part of an academic research project (DH2026). Participation is <b>fully anonymous</b> — we collect no names, accounts, or any personally identifying information. Responses are stored securely, analysed only in aggregate, and may be reported in research publications. You may stop at any time.</p>
+        </div>
+        <p class="consent" data-i18n-html="landing.consent">Anonymous · about 2 minutes · no knowledge of Chinese needed.<br>By taking part you consent to the research use described above.</p>
+        <p class="queue-note" id="queue-note" hidden></p>
+      </div>
     </div>
   </section>
 
@@ -57,8 +71,8 @@
   <section class="screen" id="s-draw">
     <div class="content">
       <div class="draw-head">
-        <h2 class="h2">The poem chooses you</h2>
-        <p class="hint">Tap one card — a 3,000-year-old verse is waiting behind it.</p>
+        <h2 class="h2" data-i18n="draw.title">The poem chooses you</h2>
+        <p class="hint" data-i18n="draw.hint">Tap one card — a 3,000-year-old verse is waiting behind it.</p>
       </div>
       <div class="card-row" id="card-row">
         <button class="card-flip" data-card="0" aria-label="card 1">
@@ -93,7 +107,7 @@
         </button>
       </div>
       <div class="draw-banner" id="draw-banner" hidden>
-        <p class="draw-banner-kicker">The poem has chosen you</p>
+        <p class="draw-banner-kicker" data-i18n="draw.chosen">The poem has chosen you</p>
         <p class="draw-banner-zh" id="draw-banner-zh"></p>
         <p class="draw-banner-en" id="draw-banner-en"></p>
       </div>
@@ -103,59 +117,59 @@
   <!-- ===== Screen 2: Feel the image (backward validation) ===== -->
   <section class="screen" id="s-feel">
     <div class="content">
-      <p class="step-tag">① Feel first — no words yet</p>
+      <p class="step-tag" data-i18n="feel.step">① Feel first — no words yet</p>
       <div class="img-frame"><img id="feel-img" alt="AI painting of a Shijing poem"></div>
-      <h2 class="h2">What do you feel?</h2>
-      <p class="hint">Pick 3–5 words that match your impression.</p>
+      <h2 class="h2" data-i18n="feel.title">What do you feel?</h2>
+      <p class="hint" data-i18n="feel.hint">Pick 3–5 words that match your impression.</p>
       <div class="chips" id="chips"></div>
-      <input type="text" id="custom-word" class="text-input" maxlength="30" placeholder="…or your own word (optional)">
-      <button class="btn-primary" id="btn-feel-next" disabled>Reveal the Poem<span class="btn-zh">揭示原诗</span></button>
+      <input type="text" id="custom-word" class="text-input" maxlength="30" placeholder="…or your own word (optional)" data-i18n-placeholder="feel.custom">
+      <button class="btn-primary" id="btn-feel-next" disabled><span data-i18n="feel.next">Reveal the Poem</span><span class="btn-zh">揭示原诗</span></button>
     </div>
   </section>
 
   <!-- ===== Screen 3: Reveal the verse ===== -->
   <section class="screen" id="s-reveal">
     <div class="content">
-      <p class="step-tag">② The poem behind the painting</p>
+      <p class="step-tag" data-i18n="reveal.step">② The poem behind the painting</p>
       <div class="verse-box">
         <p class="verse-title" id="verse-title-en"></p>
         <p class="verse-title-zh" id="verse-title-zh"></p>
         <p class="verse-translation" id="verse-translation"></p>
         <p class="verse-ancient" id="verse-ancient"></p>
       </div>
-      <button class="btn-primary" id="btn-compare-next">Compare Two Visions<span class="btn-zh">比较两种画意</span></button>
+      <button class="btn-primary" id="btn-compare-next"><span data-i18n="reveal.next">Compare Two Visions</span><span class="btn-zh">比较两种画意</span></button>
     </div>
   </section>
 
   <!-- ===== Screen 4: Compare B vs C ===== -->
   <section class="screen" id="s-compare">
     <div class="content">
-      <p class="step-tag">③ Two visions of this poem</p>
-      <h2 class="h2">Which one better captures its <i>yijing</i> (意境)?</h2>
+      <p class="step-tag" data-i18n="compare.step">③ Two visions of this poem</p>
+      <h2 class="h2" data-i18n-html="compare.title">Which one better captures its <i>yijing</i> (意境)?</h2>
       <div class="compare-grid">
         <figure class="compare-item" data-side="first">
           <img id="cmp-img-1" alt="Painting A">
-          <figcaption><button class="btn-choice" id="btn-pick-1">Image A captures it better</button></figcaption>
+          <figcaption><button class="btn-choice" id="btn-pick-1" data-i18n="compare.imageA">Image A captures it better</button></figcaption>
         </figure>
         <figure class="compare-item" data-side="second">
           <img id="cmp-img-2" alt="Painting B">
-          <figcaption><button class="btn-choice" id="btn-pick-2">Image B captures it better</button></figcaption>
+          <figcaption><button class="btn-choice" id="btn-pick-2" data-i18n="compare.imageB">Image B captures it better</button></figcaption>
         </figure>
       </div>
-      <button class="btn-ghost" id="btn-pick-neither">Neither quite works</button>
+      <button class="btn-ghost" id="btn-pick-neither" data-i18n="compare.neither">Neither quite works</button>
 
       <div id="likert-block" hidden>
         <div class="likert">
-          <p class="likert-q">How well does this image merge scene and feeling? <span class="zh-inline">情景交融</span></p>
+          <p class="likert-q" data-i18n-html="compare.fit">How well does this image merge scene and feeling? <span class="zh-inline">情景交融</span></p>
           <div class="likert-row" id="likert-fit"></div>
-          <div class="likert-labels"><span>Not at all</span><span>Perfectly</span></div>
+          <div class="likert-labels"><span data-i18n="compare.notAtAll">Not at all</span><span data-i18n="compare.perfectly">Perfectly</span></div>
         </div>
         <div class="likert">
-          <p class="likert-q">How strongly does it resonate with you, across cultures? <span class="zh-inline">文化共鸣</span></p>
+          <p class="likert-q" data-i18n-html="compare.resonance">How strongly does it resonate with you, across cultures? <span class="zh-inline">文化共鸣</span></p>
           <div class="likert-row" id="likert-resonance"></div>
-          <div class="likert-labels"><span>Not at all</span><span>Deeply</span></div>
+          <div class="likert-labels"><span data-i18n="compare.notAtAll">Not at all</span><span data-i18n="compare.deeply">Deeply</span></div>
         </div>
-        <button class="btn-primary" id="btn-compare-done" disabled>Almost Done<span class="btn-zh">下一步</span></button>
+        <button class="btn-primary" id="btn-compare-done" disabled><span data-i18n="compare.next">Almost Done</span><span class="btn-zh">下一步</span></button>
       </div>
     </div>
   </section>
@@ -163,16 +177,16 @@
   <!-- ===== Screen 5: Open reflection ===== -->
   <section class="screen" id="s-reflect">
     <div class="content">
-      <p class="step-tag">④ One last thing (optional)</p>
-      <label class="label" for="open-text">What does this remind you of?</label>
-      <textarea id="open-text" class="text-input" rows="3" maxlength="500" placeholder="A memory, a place, a feeling…"></textarea>
-      <p class="label">How familiar are you with classical Chinese poetry?</p>
+      <p class="step-tag" data-i18n="reflect.step">④ One last thing (optional)</p>
+      <label class="label" for="open-text" data-i18n="reflect.remind">What does this remind you of?</label>
+      <textarea id="open-text" class="text-input" rows="3" maxlength="500" placeholder="A memory, a place, a feeling…" data-i18n-placeholder="reflect.placeholder"></textarea>
+      <p class="label" data-i18n="reflect.familiarity">How familiar are you with classical Chinese poetry?</p>
       <div class="chips" id="familiarity-chips">
-        <button class="chip" data-val="first">First encounter</button>
-        <button class="chip" data-val="some">Somewhat</button>
-        <button class="chip" data-val="familiar">Familiar</button>
+        <button class="chip" data-val="first" data-i18n="reflect.first">First encounter</button>
+        <button class="chip" data-val="some" data-i18n="reflect.some">Somewhat</button>
+        <button class="chip" data-val="familiar" data-i18n="reflect.familiar">Familiar</button>
       </div>
-      <button class="btn-primary" id="btn-submit">Submit<span class="btn-zh">提交</span></button>
+      <button class="btn-primary" id="btn-submit"><span data-i18n="reflect.submit">Submit</span><span class="btn-zh">提交</span></button>
       <p class="hint" id="submit-status"></p>
     </div>
   </section>
@@ -181,18 +195,19 @@
   <section class="screen" id="s-thanks">
     <div class="content">
       <div class="seal-circle">谢</div>
-      <h2 class="h2">Thank you!</h2>
+      <h2 class="h2" data-i18n="thanks.title">Thank you!</h2>
       <p class="lede" id="thanks-line">Your feelings have joined a 3,000-year dialogue between poetry and painting.</p>
       <p class="hint" id="thanks-stats"></p>
-      <button class="btn-primary" id="btn-again">Draw Again<span class="btn-zh">再抽一张</span></button>
+      <button class="btn-primary" id="btn-again"><span data-i18n="thanks.again">Draw Again</span><span class="btn-zh">再抽一张</span></button>
     </div>
   </section>
 
   <!-- full-screen image zoom overlay -->
   <div id="zoom-overlay" hidden><img id="zoom-img" alt="zoomed painting"></div>
-  <div id="export-bar" hidden><a id="export-link" href="#">⬇ Export locally-saved responses (backup)</a></div>
+  <div id="export-bar" hidden><a id="export-link" href="#" data-i18n="export.label">⬇ Export locally-saved responses (backup)</a></div>
 </div>
 
+<script src="js/i18n.js"></script>
 <script src="js/config.js"></script>
 <script src="js/segments.js"></script>
 <script src="js/store.js"></script>

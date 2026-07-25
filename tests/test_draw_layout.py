@@ -54,6 +54,7 @@ def run_case(browser, width, height):
     )
     page = context.new_page()
     page.goto(BASE, wait_until="load")
+    page.click(".language-choice[data-lang='en']")
     page.click("#btn-start")
     page.wait_for_timeout(500)
     assert_draw_layout(page)

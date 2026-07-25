@@ -4,6 +4,7 @@
   const $ = id => document.getElementById(id);
   const CFG = window.APP_CONFIG;
   const SEGMENTS = window.SEGMENTS;
+  const I18N = window.I18N;
 
   // ---------- per-round state ----------
   let round = null;
@@ -53,6 +54,7 @@
       card.querySelector(".front-poem-en").textContent = s.title_en;
       $("draw-banner-zh").textContent = s.title_zh;
       $("draw-banner-en").textContent = `${s.title_en} — “${s.title_short}”`;
+      $("draw-banner-en").hidden = I18N.getLanguage() === "zh";
       card.classList.add("picked");
       document.querySelectorAll(".card-flip").forEach(c => {
         if (c !== card) c.classList.add("faded");
@@ -72,7 +74,7 @@
     CFG.KEYWORDS.forEach(w => {
       const b = document.createElement("button");
       b.className = "chip";
-      b.textContent = w;
+      b.textContent = I18N.keywordLabel(w);
       b.addEventListener("click", () => {
         const i = round.keywords.indexOf(w);
         if (i >= 0) { round.keywords.splice(i, 1); b.classList.remove("selected"); }
@@ -97,10 +99,13 @@
   // ---------- Screen 3: reveal ----------
   function enterReveal() {
     const s = round.segment;
+    const showEnglish = I18N.getLanguage() === "en";
     $("verse-title-en").textContent = `${s.title_en} — “${s.title_short}”`;
+    $("verse-title-en").hidden = !showEnglish;
     $("verse-title-zh").textContent = s.title_zh;
     $("verse-ancient").textContent = s.ancient;
     $("verse-translation").textContent = s.translation;
+    $("verse-translation").hidden = !showEnglish;
     show("s-reveal");
   }
   $("btn-compare-next").addEventListener("click", enterCompare);
@@ -182,7 +187,7 @@
     if (submitting) return;
     submitting = true;
     $("btn-submit").disabled = true;
-    $("submit-status").textContent = "Submitting…";
+    $("submit-status").textContent = I18N.t("status.submitting");
     const s = round.segment;
     const result = await window.Store.submit({
       segment_id: s.id,
@@ -206,8 +211,8 @@
   // ---------- Screen 6: thanks ----------
   async function enterThanks(result) {
     $("thanks-line").textContent = result === "online"
-      ? "Your feelings have joined a 3,000-year dialogue between poetry and painting."
-      : "You appear to be offline — your response is safely saved on this device and will sync automatically later.";
+      ? I18N.t("thanks.online")
+      : I18N.t("thanks.offline");
     $("thanks-stats").textContent = "";
     show("s-thanks");
     // optional live counter (only when endpoint configured & online)
@@ -215,7 +220,7 @@
       try {
         const r = await fetch(window.APP_CONFIG.ENDPOINT_URL + "?stats=1");
         const j = await r.json();
-        if (j && j.total) $("thanks-stats").textContent = `You are participant #${j.total}. 你是第 ${j.total} 位知音`;
+        if (j && j.total) $("thanks-stats").textContent = I18N.t("thanks.stats", { n: j.total });
       } catch (e) { /* stats are a nicety, not a requirement */ }
     }
   }

@@ -52,6 +52,26 @@ body {
 .consent { color: var(--text-dim); font-size: .85rem; margin-top: 16px; }
 .queue-note { color: var(--gold); font-size: .85rem; margin-top: 10px; }
 
+/* language entry */
+.language-gate { text-align: center; }
+.language-gate .title-zh { margin-bottom: 30px; }
+.language-prompt { color: var(--text); font-family: var(--serif); font-size: 1.2rem; }
+.language-prompt span { display: block; margin-top: 2px; color: var(--text-dim); font-family: var(--sans); font-size: .9rem; }
+.language-options { display: flex; gap: 12px; margin-top: 22px; }
+.language-choice {
+  flex: 1; padding: 15px 12px; border: 1px solid var(--gold-dim); border-radius: 14px;
+  background: rgba(22, 73, 76, .7); color: var(--text); font: 600 1.05rem var(--sans);
+  cursor: pointer; transition: transform .15s ease, border-color .2s, background .2s;
+}
+.language-choice:active { transform: scale(.97); }
+.language-choice:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.language-back {
+  display: block; margin: 0 0 20px auto; border: 0; background: none;
+  color: var(--text-dim); font: .82rem var(--sans); cursor: pointer;
+}
+#language-gate[hidden], #landing-main[hidden] { display: none; }
+html[lang="zh-CN"] .btn-zh { display: none; }
+
 /* research notice box (landing) */
 .research-note {
   margin-top: 20px; padding: 14px 16px;

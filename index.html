@@ -4,6 +4,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<script>
+(function () {
+  var root = document.documentElement;
+  function syncViewportHeight() {
+    var viewport = window.visualViewport;
+    var height = viewport && viewport.height ? viewport.height : window.innerHeight;
+    if (!height) return;
+    root.style.setProperty("--viewport-height", Math.round(height) + "px");
+  }
+
+  syncViewportHeight();
+  window.addEventListener("resize", syncViewportHeight);
+  window.addEventListener("orientationchange", syncViewportHeight);
+  window.addEventListener("pageshow", syncViewportHeight);
+  if (window.visualViewport && window.visualViewport.addEventListener) {
+    window.visualViewport.addEventListener("resize", syncViewportHeight);
+  }
+})();
+</script>
 <meta name="theme-color" content="#0e2a2c">
 <title>Feel the Poetry · 诗画无界 — DH2026</title>
 <meta name="description" content="Can an image cross the language barrier? Draw a poem from the Shijing, feel an AI painting, and join live cross-cultural research.">

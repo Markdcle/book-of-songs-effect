@@ -32,6 +32,11 @@
         step: "② The poem behind the painting",
         next: "Compare Two Visions"
       },
+      reference: {
+        label: "Poem reference",
+        hide: "Hide",
+        show: "Show"
+      },
       compare: {
         step: "③ Comparison {current} of {total}",
         title: "Which image better captures the poem’s poetic mood and imagery?",
@@ -115,6 +120,11 @@
       reveal: {
         step: "② 画作背后的原诗",
         next: "比较两种画意"
+      },
+      reference: {
+        label: "原诗参照",
+        hide: "收起",
+        show: "展开"
       },
       compare: {
         step: "③ 第 {current} 轮，共 {total} 轮",

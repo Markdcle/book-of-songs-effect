@@ -35,6 +35,7 @@
         narrative: { visualCoherence: 0, affectiveFidelity: 0, semanticFidelity: 0 },
         baseline: { visualCoherence: 0, affectiveFidelity: 0, semanticFidelity: 0 }
       },
+      referenceExpanded: { compare: true, rating: true },
       openText: "",
       familiarity: ""
     };
@@ -120,12 +121,41 @@
   }
   $("btn-compare-next").addEventListener("click", enterCompare);
 
+  // ---------- shared poem reference for judgment stages ----------
+  function renderPoemReference(prefix) {
+    const s = round.segment;
+    const expanded = round.referenceExpanded[prefix];
+    const showEnglish = I18N.getLanguage() === "en";
+    $(prefix + "-poem-label").textContent = I18N.t("reference.label");
+    $(prefix + "-poem-toggle-text").textContent = I18N.t(
+      expanded ? "reference.hide" : "reference.show"
+    );
+    $(prefix + "-poem-toggle").setAttribute("aria-expanded", expanded ? "true" : "false");
+    $(prefix + "-poem-reference").classList.toggle("is-collapsed", !expanded);
+    $(prefix + "-poem-body").hidden = !expanded;
+    $(prefix + "-poem-title-en").textContent = s.title_en + " — “" + s.title_short + "”";
+    $(prefix + "-poem-title-en").hidden = !showEnglish;
+    $(prefix + "-poem-title-zh").textContent = s.title_zh;
+    $(prefix + "-poem-ancient").textContent = s.ancient;
+    $(prefix + "-poem-translation").textContent = s.translation;
+    $(prefix + "-poem-translation").hidden = !showEnglish;
+  }
+  function togglePoemReference(prefix) {
+    if (!round) return;
+    round.referenceExpanded[prefix] = !round.referenceExpanded[prefix];
+    renderPoemReference(prefix);
+  }
+  ["compare", "rating"].forEach(prefix => {
+    $(prefix + "-poem-toggle").addEventListener("click", () => togglePoemReference(prefix));
+  });
+
   // ---------- Screen 4: two fixed pairwise comparisons ----------
   function enterCompare() {
     const trial = round.comparisons[round.comparisonIndex];
     const id = round.segment.id;
     $("cmp-img-1").src = imgSrc(trial.order[0], id);
     $("cmp-img-2").src = imgSrc(trial.order[1], id);
+    renderPoemReference("compare");
     $("compare-progress").textContent = I18N.t("compare.step", {
       current: round.comparisonIndex + 1,
       total: round.comparisons.length
@@ -211,6 +241,7 @@
       total: round.ratingOrder.length
     });
     $("rating-screen-img").src = imgSrc(kind, round.segment.id);
+    renderPoemReference("rating");
     $("btn-rating-done").textContent = I18N.t(
       round.ratingIndex < round.ratingOrder.length - 1
         ? "rating.nextImage"

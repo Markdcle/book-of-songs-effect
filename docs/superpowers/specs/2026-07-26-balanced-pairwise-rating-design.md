@@ -146,3 +146,9 @@ Recommended analysis:
 - Browser tests block the production Apps Script endpoint.
 - English and Chinese text, mobile scrolling, image zoom, Service Worker caching, optional reflection, and contact card remain functional.
 
+## Poem-reference continuity addendum
+
+Stages ③ and ④ use the shared, collapsible poem-reference card defined in
+[Persistent Poem Reference Design](2026-07-26-poem-reference-continuity-design.md).
+This keeps the judgment target available without changing blinding, assignment,
+or submitted research fields.

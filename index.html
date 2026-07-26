@@ -146,6 +146,24 @@
     <div class="content">
       <p class="step-tag" id="compare-progress">③ Comparison 1 of 2</p>
       <h2 class="h2" data-i18n-html="compare.title">Which image better captures the poem’s poetic mood and imagery?</h2>
+      <section class="poem-reference" id="compare-poem-reference">
+        <button
+          class="poem-reference-toggle"
+          id="compare-poem-toggle"
+          type="button"
+          aria-expanded="true"
+          aria-controls="compare-poem-body"
+        >
+          <span class="poem-reference-label" id="compare-poem-label" data-i18n="reference.label">Poem reference</span>
+          <span class="poem-reference-state" id="compare-poem-toggle-text">Hide</span>
+        </button>
+        <div class="poem-reference-body" id="compare-poem-body">
+          <p class="poem-reference-title-en" id="compare-poem-title-en"></p>
+          <p class="poem-reference-title-zh" id="compare-poem-title-zh"></p>
+          <p class="poem-reference-ancient" id="compare-poem-ancient"></p>
+          <p class="poem-reference-translation" id="compare-poem-translation"></p>
+        </div>
+      </section>
       <div class="compare-grid">
         <figure class="compare-item" data-side="first">
           <img id="cmp-img-1" alt="Comparison image A" data-i18n-alt="compare.imageAAlt">
@@ -167,6 +185,24 @@
       <p class="step-tag" id="rating-progress">④ Rate image 1 of 2</p>
       <h2 class="h2" id="rating-title">Please rate image 1 of 2.</h2>
       <p class="hint" data-i18n="rating.hint">Please consider this image on its own.</p>
+      <section class="poem-reference" id="rating-poem-reference">
+        <button
+          class="poem-reference-toggle"
+          id="rating-poem-toggle"
+          type="button"
+          aria-expanded="true"
+          aria-controls="rating-poem-body"
+        >
+          <span class="poem-reference-label" id="rating-poem-label" data-i18n="reference.label">Poem reference</span>
+          <span class="poem-reference-state" id="rating-poem-toggle-text">Hide</span>
+        </button>
+        <div class="poem-reference-body" id="rating-poem-body">
+          <p class="poem-reference-title-en" id="rating-poem-title-en"></p>
+          <p class="poem-reference-title-zh" id="rating-poem-title-zh"></p>
+          <p class="poem-reference-ancient" id="rating-poem-ancient"></p>
+          <p class="poem-reference-translation" id="rating-poem-translation"></p>
+        </div>
+      </section>
       <figure class="baseline-figure">
         <img id="rating-screen-img" alt="Image to rate" data-i18n-alt="rating.imageAlt">
       </figure>

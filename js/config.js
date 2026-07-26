@@ -7,14 +7,15 @@ window.APP_CONFIG = {
 
   // Image path templates per stimulus group; {n} is the segment id 1-36.
   // The Narrative group (C) is the candidate method; every draw pits it
-  // against one randomly chosen opponent from the other three groups.
+  // against Group A or B with equal probability. Group D is rated separately
+  // by every participant as a blind baseline.
   IMG: {
     narrative: "assets/img/c/C{n}.webp", // Group C — narrative/affective (candidate)
     literal:   "assets/img/b/B{n}.webp", // Group B — literal/semantic
     ancient:   "assets/img/a/A{n}.webp", // Group A — classical ink-painting style
     baseline:  "assets/img/d/D{n}.webp"  // Group D — analytic diagram baseline
   },
-  OPPONENTS: ["ancient", "literal", "baseline"],
+  OPPONENTS: ["ancient", "literal"],
 
   // Emotion keyword chips shown on the "What do you feel?" screen.
   KEYWORDS: [
@@ -22,6 +23,6 @@ window.APP_CONFIG = {
     "serene", "nostalgic", "solitary", "hopeful", "sorrowful",
     "tender", "anxious", "warm", "determined", "lonely", "awed"
   ],
-  KEYWORD_MIN: 1,   // next-button threshold (UI copy invites 3–5)
+  KEYWORD_MIN: 3,
   KEYWORD_MAX: 5
 };

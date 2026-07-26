@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <script>
 (function () {
   var root = document.documentElement;
@@ -55,13 +55,13 @@
         <h1 class="title" data-i18n="landing.title">Feel the Poetry</h1>
         <p class="title-zh">诗画无界</p>
         <p class="lede" data-i18n-html="landing.intro1">Three thousand years ago, Chinese poets sang of love, longing and war in the <i>Shijing</i> (诗经), the Book of Songs.</p>
-        <p class="lede" data-i18n-html="landing.intro2">We asked AI to <b>paint</b> these untranslatable poems — no words, only feeling. Your impressions become live data in our research.</p>
+        <p class="lede" data-i18n-html="landing.intro2">We asked AI to visualize how these poems carry meaning and emotion across languages. Your responses help us compare different visual interpretations.</p>
         <button class="btn-primary" id="btn-start"><span data-i18n="landing.start">Draw Your Poem</span></button>
         <div class="research-note">
           <p class="rn-title" data-i18n="landing.researchTitle">Academic Research Study</p>
-          <p data-i18n-html="landing.researchBody">This exhibit is part of an academic research project (DH2026). Participation is <b>fully anonymous</b> — we collect no names, accounts, or any personally identifying information. Responses are stored securely, analysed only in aggregate, and may be reported in research publications. You may stop at any time.</p>
+          <p data-i18n-html="landing.researchBody">This exhibit is part of an academic research project (DH2026). We do not ask for your name, account, or contact details. Your responses are stored securely, analysed only in aggregate, and may be reported in research publications. Participation is voluntary, and you may stop at any time.</p>
         </div>
-        <p class="consent" data-i18n-html="landing.consent">Anonymous · about 2 minutes · no knowledge of Chinese needed.<br>By taking part you consent to the research use described above.</p>
+        <p class="consent" data-i18n-html="landing.consent">About 3 minutes · no knowledge of Chinese needed.<br>By taking part you consent to the research use described above.</p>
         <p class="queue-note" id="queue-note" hidden></p>
       </div>
     </div>
@@ -141,43 +141,58 @@
     </div>
   </section>
 
-  <!-- ===== Screen 4: Compare B vs C ===== -->
+  <!-- ===== Screen 4: two fixed pairwise comparisons ===== -->
   <section class="screen" id="s-compare">
     <div class="content">
-      <p class="step-tag" data-i18n="compare.step">③ Two visions of this poem</p>
+      <p class="step-tag" id="compare-progress">③ Comparison 1 of 2</p>
       <h2 class="h2" data-i18n-html="compare.title">Which image better captures the poem’s poetic mood and imagery?</h2>
       <div class="compare-grid">
         <figure class="compare-item" data-side="first">
-          <img id="cmp-img-1" alt="Painting A">
-          <figcaption><button class="btn-choice" id="btn-pick-1" data-i18n="compare.imageA">Image A captures it better</button></figcaption>
+          <img id="cmp-img-1" alt="Comparison image A" data-i18n-alt="compare.imageAAlt">
+          <figcaption><button class="btn-choice" id="btn-pick-1" data-i18n="compare.imageA" aria-pressed="false">Image A captures it better</button></figcaption>
         </figure>
         <figure class="compare-item" data-side="second">
-          <img id="cmp-img-2" alt="Painting B">
-          <figcaption><button class="btn-choice" id="btn-pick-2" data-i18n="compare.imageB">Image B captures it better</button></figcaption>
+          <img id="cmp-img-2" alt="Comparison image B" data-i18n-alt="compare.imageBAlt">
+          <figcaption><button class="btn-choice" id="btn-pick-2" data-i18n="compare.imageB" aria-pressed="false">Image B captures it better</button></figcaption>
         </figure>
       </div>
-      <button class="btn-ghost" id="btn-pick-neither" data-i18n="compare.neither">Neither quite works</button>
-
-      <div id="likert-block" hidden>
-        <div class="likert">
-          <p class="likert-q" data-i18n-html="compare.fit">How well does this image merge scene and feeling?</p>
-          <div class="likert-row" id="likert-fit"></div>
-          <div class="likert-labels"><span data-i18n="compare.notAtAll">Not at all</span><span data-i18n="compare.perfectly">Perfectly</span></div>
-        </div>
-        <div class="likert">
-          <p class="likert-q" data-i18n-html="compare.resonance">How strongly does it resonate with you, across cultures?</p>
-          <div class="likert-row" id="likert-resonance"></div>
-          <div class="likert-labels"><span data-i18n="compare.notAtAll">Not at all</span><span data-i18n="compare.deeply">Deeply</span></div>
-        </div>
-        <button class="btn-primary" id="btn-compare-done" disabled><span data-i18n="compare.next">Almost Done</span></button>
-      </div>
+      <button class="btn-ghost" id="btn-pick-neither" data-i18n="compare.neither" aria-pressed="false">No clear preference</button>
+      <button class="btn-primary" id="btn-compare-done" disabled><span data-i18n="compare.nextComparison">Next comparison</span></button>
     </div>
   </section>
 
-  <!-- ===== Screen 5: Open reflection ===== -->
+  <!-- ===== Screen 5: counterbalanced C/D single-image ratings ===== -->
+  <section class="screen" id="s-rating">
+    <div class="content">
+      <p class="step-tag" id="rating-progress">④ Rate image 1 of 2</p>
+      <h2 class="h2" id="rating-title">Please rate image 1 of 2.</h2>
+      <p class="hint" data-i18n="rating.hint">Please consider this image on its own.</p>
+      <figure class="baseline-figure">
+        <img id="rating-screen-img" alt="Image to rate" data-i18n-alt="rating.imageAlt">
+      </figure>
+      <div class="likert">
+        <p class="likert-q" data-i18n="compare.visualCoherence">How visually coherent is this image as a whole?</p>
+        <div class="likert-row" id="rating-likert-visual-coherence"></div>
+        <div class="likert-labels"><span data-i18n="compare.notCoherent">Not coherent</span><span data-i18n="compare.veryCoherent">Very coherent</span></div>
+      </div>
+      <div class="likert">
+        <p class="likert-q" data-i18n="compare.affectiveFidelity">How well does this image preserve the poem’s emotional atmosphere?</p>
+        <div class="likert-row" id="rating-likert-affective-fidelity"></div>
+        <div class="likert-labels"><span data-i18n="compare.notFaithful">Not faithful</span><span data-i18n="compare.veryFaithful">Very faithful</span></div>
+      </div>
+      <div class="likert">
+        <p class="likert-q" data-i18n="compare.semanticFidelity">How accurately does this image depict the poem’s key imagery and events?</p>
+        <div class="likert-row" id="rating-likert-semantic-fidelity"></div>
+        <div class="likert-labels"><span data-i18n="compare.notAccurate">Not accurate</span><span data-i18n="compare.veryAccurate">Very accurate</span></div>
+      </div>
+      <button class="btn-primary" id="btn-rating-done" disabled><span data-i18n="rating.nextImage">Next image</span></button>
+    </div>
+  </section>
+
+  <!-- ===== Screen 6: Open reflection ===== -->
   <section class="screen" id="s-reflect">
     <div class="content">
-      <p class="step-tag" data-i18n="reflect.step">④ One last thing (optional)</p>
+      <p class="step-tag" data-i18n="reflect.step">⑤ Final reflection (optional)</p>
       <label class="label" for="open-text" data-i18n="reflect.remind">What does this remind you of?</label>
       <textarea id="open-text" class="text-input" rows="3" maxlength="500" placeholder="A memory, a place, a feeling…" data-i18n-placeholder="reflect.placeholder"></textarea>
       <p class="label" data-i18n="reflect.familiarity">How familiar are you with classical Chinese poetry?</p>
@@ -191,7 +206,7 @@
     </div>
   </section>
 
-  <!-- ===== Screen 6: Thanks ===== -->
+  <!-- ===== Screen 7: Thanks ===== -->
   <section class="screen" id="s-thanks">
     <div class="content">
       <div class="seal-circle">谢</div>
@@ -209,7 +224,10 @@
           height="729"
         >
         <p class="contact-instruction" data-i18n="thanks.contactInstruction">Long-press the QR code to recognize it in WeChat.</p>
-        <a class="contact-email" href="mailto:vvv@stu.njau.edu.cn">vvv@stu.njau.edu.cn</a>
+        <a class="contact-email" href="mailto:vvv@stu.njau.edu.cn">
+          <span class="contact-email-label" data-i18n="thanks.emailLabel">✉ Email</span>
+          <span class="contact-email-address">vvv@stu.njau.edu.cn</span>
+        </a>
       </aside>
       <button class="btn-primary" id="btn-again"><span data-i18n="thanks.again">Draw Again</span></button>
     </div>
@@ -220,7 +238,7 @@
   <div id="export-bar" hidden><a id="export-link" href="#" data-i18n="export.label">⬇ Export locally-saved responses (backup)</a></div>
 </div>
 
-<script src="js/i18n.js"></script>
+<script src="js/i18n.js" charset="UTF-8"></script>
 <script src="js/config.js"></script>
 <script src="js/segments.js"></script>
 <script src="js/store.js"></script>

@@ -213,6 +213,11 @@ html[lang="en"] #landing-main .title-zh { display: none; }
 .compare-item.selected { border-color: var(--gold); }
 .compare-item img { cursor: zoom-in; }
 .compare-item figcaption { padding: 10px; }
+.baseline-figure {
+  max-width: 420px; margin: 16px auto 0; overflow: hidden;
+  border: 1px solid var(--gold-dim); border-radius: 14px; background: var(--surface);
+}
+.baseline-figure img { width: 100%; height: auto; display: block; cursor: zoom-in; }
 
 /* likert */
 .likert { margin-top: 26px; }
@@ -246,8 +251,10 @@ html[lang="en"] #landing-main .title-zh { display: none; }
 .contact-instruction { color: var(--text-dim); font: .84rem/1.5 var(--sans); }
 .contact-email {
   display: inline-block; margin-top: 9px; color: var(--gold);
-  font: .9rem var(--sans); overflow-wrap: break-word;
+  font: .9rem var(--sans); overflow-wrap: break-word; text-decoration: none;
 }
+.contact-email-label { display: block; margin-bottom: 2px; color: var(--text-dim); font-size: .78rem; font-weight: 600; }
+.contact-email-address { display: block; text-decoration: underline; text-underline-offset: 3px; }
 #s-thanks #btn-again { margin-top: 0; }
 
 /* zoom overlay */

@@ -54,8 +54,13 @@ def check_contact_card():
         assert image.get_attribute("src") == "assets/wechat-qr.png"
         assert image.get_attribute("alt") == "WeChat contact QR code"
         email = card.locator(".contact-email")
-        assert email.inner_text() == "vvv@stu.njau.edu.cn"
         assert email.get_attribute("href") == "mailto:vvv@stu.njau.edu.cn"
+        assert email.locator(".contact-email-label").count() == 1
+        assert email.locator(".contact-email-label").inner_text() == "✉ Email"
+        assert (
+            email.locator(".contact-email-address").inner_text()
+            == "vvv@stu.njau.edu.cn"
+        )
         assert page.locator(".contact-card + #btn-again").count() == 1
 
         page.reload(wait_until="load")
@@ -67,6 +72,7 @@ def check_contact_card():
             "长按二维码，在微信中识别并添加好友。"
         )
         assert card.locator(".contact-qr").get_attribute("alt") == "微信联系二维码"
+        assert card.locator(".contact-email-label").inner_text() == "✉ 邮箱"
 
         browser.close()
 

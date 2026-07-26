@@ -10,20 +10,31 @@
   let round = null;
   function newRound() {
     const seg = SEGMENTS[Math.floor(Math.random() * SEGMENTS.length)];
-    // The candidate (narrative, Group C) is compared against one randomly
-    // drawn opponent group; which painting appears as "Image A" is also
-    // randomised. Both are recorded for the paper.
-    const opponent = CFG.OPPONENTS[Math.floor(Math.random() * CFG.OPPONENTS.length)];
-    const order = Math.random() < 0.5 ? ["narrative", opponent] : [opponent, "narrative"];
+    const opponents = Math.random() < 0.5
+      ? ["ancient", "literal"]
+      : ["literal", "ancient"];
+    const comparisons = opponents.map(opponent => ({
+      opponent,
+      order: Math.random() < 0.5
+        ? ["narrative", opponent]
+        : [opponent, "narrative"],
+      choice: null
+    }));
+    const ratingOrder = Math.random() < 0.5
+      ? ["narrative", "baseline"]
+      : ["baseline", "narrative"];
     return {
       segment: seg,
       keywords: [],
       customWord: "",
-      opponent,                   // "ancient" | "literal" | "baseline"
-      order,                      // e.g. ["narrative","literal"] -> A=narrative
-      compareChoice: null,        // resolved to a group name | "neither"
-      likertFit: 0,
-      likertResonance: 0,
+      comparisons,
+      comparisonIndex: 0,
+      ratingOrder,
+      ratingIndex: 0,
+      ratings: {
+        narrative: { visualCoherence: 0, affectiveFidelity: 0, semanticFidelity: 0 },
+        baseline: { visualCoherence: 0, affectiveFidelity: 0, semanticFidelity: 0 }
+      },
       openText: "",
       familiarity: ""
     };
@@ -49,7 +60,6 @@
       if (card.classList.contains("picked") || document.querySelector(".card-flip.picked")) return;
       round = newRound();
       const s = round.segment;
-      // fill the front of the drawn slip + the reveal banner
       card.querySelector(".front-poem-zh").textContent = s.title_zh;
       card.querySelector(".front-poem-en").textContent = s.title_en;
       $("draw-banner-zh").textContent = s.title_zh;
@@ -60,9 +70,9 @@
         if (c !== card) c.classList.add("faded");
       });
       $("draw-banner").hidden = false;
-      // preload both paintings for this segment while the flip animates
-      new Image().src = imgSrc("narrative", s.id);
-      new Image().src = imgSrc(round.opponent, s.id);
+      ["narrative", "ancient", "literal", "baseline"].forEach(kind => {
+        new Image().src = imgSrc(kind, s.id);
+      });
       setTimeout(enterFeel, 2400);
     });
   });
@@ -110,56 +120,134 @@
   }
   $("btn-compare-next").addEventListener("click", enterCompare);
 
-  // ---------- Screen 4: compare ----------
+  // ---------- Screen 4: two fixed pairwise comparisons ----------
   function enterCompare() {
+    const trial = round.comparisons[round.comparisonIndex];
     const id = round.segment.id;
-    $("cmp-img-1").src = imgSrc(round.order[0], id);
-    $("cmp-img-2").src = imgSrc(round.order[1], id);
+    $("cmp-img-1").src = imgSrc(trial.order[0], id);
+    $("cmp-img-2").src = imgSrc(trial.order[1], id);
+    $("compare-progress").textContent = I18N.t("compare.step", {
+      current: round.comparisonIndex + 1,
+      total: round.comparisons.length
+    });
     document.querySelectorAll(".compare-item").forEach(f => f.classList.remove("selected"));
     $("btn-pick-1").classList.remove("selected");
     $("btn-pick-2").classList.remove("selected");
-    $("likert-block").hidden = true;
+    $("btn-pick-neither").classList.remove("selected");
+    ["btn-pick-1", "btn-pick-2", "btn-pick-neither"].forEach(id => {
+      $(id).setAttribute("aria-pressed", "false");
+    });
     $("btn-compare-done").disabled = true;
-    buildLikert($("likert-fit"), v => { round.likertFit = v; checkCompareDone(); });
-    buildLikert($("likert-resonance"), v => { round.likertResonance = v; checkCompareDone(); });
+    $("btn-compare-done").textContent = I18N.t(
+      round.comparisonIndex < round.comparisons.length - 1
+        ? "compare.nextComparison"
+        : "compare.nextRatings"
+    );
     show("s-compare");
   }
-  function pick(side) { // side: 0 = first image shown, 1 = second, -1 = neither
-    round.compareChoice = side === -1 ? "neither" : round.order[side];
+  function pick(side) {
+    const trial = round.comparisons[round.comparisonIndex];
+    trial.choice = side === -1 ? "tie" : trial.order[side];
     document.querySelectorAll(".compare-item").forEach(f => f.classList.remove("selected"));
     $("btn-pick-1").classList.toggle("selected", side === 0);
     $("btn-pick-2").classList.toggle("selected", side === 1);
-    if (side >= 0) document.querySelector(`.compare-item[data-side="${side === 0 ? "first" : "second"}"]`).classList.add("selected");
-    $("likert-block").hidden = false;
-    $("likert-block").scrollIntoView({ behavior: "smooth", block: "nearest" });
-    checkCompareDone();
+    $("btn-pick-neither").classList.toggle("selected", side === -1);
+    $("btn-pick-1").setAttribute("aria-pressed", side === 0 ? "true" : "false");
+    $("btn-pick-2").setAttribute("aria-pressed", side === 1 ? "true" : "false");
+    $("btn-pick-neither").setAttribute("aria-pressed", side === -1 ? "true" : "false");
+    if (side >= 0) {
+      const shownSide = side === 0 ? "first" : "second";
+      document.querySelector(`.compare-item[data-side="${shownSide}"]`).classList.add("selected");
+    }
+    $("btn-compare-done").disabled = false;
   }
   $("btn-pick-1").addEventListener("click", () => pick(0));
   $("btn-pick-2").addEventListener("click", () => pick(1));
   $("btn-pick-neither").addEventListener("click", () => pick(-1));
+  $("btn-compare-done").addEventListener("click", () => {
+    if (round.comparisonIndex < round.comparisons.length - 1) {
+      round.comparisonIndex += 1;
+      enterCompare();
+      return;
+    }
+    round.ratingIndex = 0;
+    enterRating();
+  });
 
   function buildLikert(row, setter) {
     row.innerHTML = "";
+    row.setAttribute("role", "radiogroup");
+    const question = row.parentNode.querySelector(".likert-q");
+    if (question) row.setAttribute("aria-label", question.textContent);
     for (let v = 1; v <= 5; v++) {
       const b = document.createElement("button");
       b.className = "likert-dot";
       b.textContent = v;
+      b.setAttribute("role", "radio");
+      b.setAttribute("aria-checked", "false");
       b.addEventListener("click", () => {
-        row.querySelectorAll(".likert-dot").forEach(d => d.classList.remove("selected"));
+        row.querySelectorAll(".likert-dot").forEach(d => {
+          d.classList.remove("selected");
+          d.setAttribute("aria-checked", "false");
+        });
         b.classList.add("selected");
+        b.setAttribute("aria-checked", "true");
         setter(v);
       });
       row.appendChild(b);
     }
   }
-  function checkCompareDone() {
-    $("btn-compare-done").disabled =
-      !(round.compareChoice && round.likertFit > 0 && round.likertResonance > 0);
+
+  // ---------- Screen 5: counterbalanced C/D single-image ratings ----------
+  function enterRating() {
+    const kind = round.ratingOrder[round.ratingIndex];
+    const scores = round.ratings[kind];
+    $("rating-progress").textContent = I18N.t("rating.step", {
+      current: round.ratingIndex + 1,
+      total: round.ratingOrder.length
+    });
+    $("rating-title").textContent = I18N.t("rating.title", {
+      current: round.ratingIndex + 1,
+      total: round.ratingOrder.length
+    });
+    $("rating-screen-img").src = imgSrc(kind, round.segment.id);
+    $("btn-rating-done").textContent = I18N.t(
+      round.ratingIndex < round.ratingOrder.length - 1
+        ? "rating.nextImage"
+        : "rating.next"
+    );
+    $("btn-rating-done").disabled = true;
+    buildLikert($("rating-likert-visual-coherence"), v => {
+      scores.visualCoherence = v;
+      checkRatingDone(scores);
+    });
+    buildLikert($("rating-likert-affective-fidelity"), v => {
+      scores.affectiveFidelity = v;
+      checkRatingDone(scores);
+    });
+    buildLikert($("rating-likert-semantic-fidelity"), v => {
+      scores.semanticFidelity = v;
+      checkRatingDone(scores);
+    });
+    show("s-rating");
   }
-  $("btn-compare-done").addEventListener("click", () => show("s-reflect"));
+  function checkRatingDone(scores) {
+    $("btn-rating-done").disabled =
+      !(scores.visualCoherence > 0 &&
+        scores.affectiveFidelity > 0 &&
+        scores.semanticFidelity > 0);
+  }
+  $("btn-rating-done").addEventListener("click", () => {
+    if (round.ratingIndex < round.ratingOrder.length - 1) {
+      round.ratingIndex += 1;
+      enterRating();
+      return;
+    }
+    show("s-reflect");
+  });
 
   // zoom overlay
-  [$("cmp-img-1"), $("cmp-img-2"), $("feel-img")].forEach(img => {
+  [$("cmp-img-1"), $("cmp-img-2"), $("feel-img"), $("rating-screen-img")].forEach(img => {
     img.addEventListener("click", () => {
       $("zoom-img").src = img.src;
       $("zoom-overlay").hidden = false;
@@ -167,7 +255,7 @@
   });
   $("zoom-overlay").addEventListener("click", () => { $("zoom-overlay").hidden = true; });
 
-  // ---------- Screen 5: reflect + submit ----------
+  // ---------- Screen 6: reflect + submit ----------
   let familiarityBound = false;
   function bindFamiliarity() {
     if (familiarityBound) return;
@@ -189,16 +277,31 @@
     $("btn-submit").disabled = true;
     $("submit-status").textContent = I18N.t("status.submitting");
     const s = round.segment;
+    const comparison1 = round.comparisons[0];
+    const comparison2 = round.comparisons[1];
+    const cRatings = round.ratings.narrative;
+    const dRatings = round.ratings.baseline;
     const result = await window.Store.submit({
       segment_id: s.id,
       poem_part: s.part,
       keywords: round.keywords,
       custom_word: round.customWord,
-      opponent_group: round.opponent,    // which group narrative was pitted against
-      shown_first: round.order[0],       // what "Image A" actually was
-      compare_choice: round.compareChoice,
-      likert_fit: round.likertFit,
-      likert_resonance: round.likertResonance,
+      comparison_order: round.comparisons.map(trial => trial.opponent).join(">"),
+      comparison_1_pair: `narrative_vs_${comparison1.opponent}`,
+      comparison_1_left_group: comparison1.order[0],
+      comparison_1_right_group: comparison1.order[1],
+      comparison_1_choice: comparison1.choice,
+      comparison_2_pair: `narrative_vs_${comparison2.opponent}`,
+      comparison_2_left_group: comparison2.order[0],
+      comparison_2_right_group: comparison2.order[1],
+      comparison_2_choice: comparison2.choice,
+      rating_order: round.ratingOrder.join(">"),
+      likert_visual_coherence: cRatings.visualCoherence,
+      likert_affective_fidelity: cRatings.affectiveFidelity,
+      likert_semantic_fidelity: cRatings.semanticFidelity,
+      baseline_likert_visual_coherence: dRatings.visualCoherence,
+      baseline_likert_affective_fidelity: dRatings.affectiveFidelity,
+      baseline_likert_semantic_fidelity: dRatings.semanticFidelity,
       open_text: $("open-text").value.trim(),
       familiarity: round.familiarity
     });
@@ -208,14 +311,13 @@
     enterThanks(result);
   });
 
-  // ---------- Screen 6: thanks ----------
+  // ---------- Screen 7: thanks ----------
   async function enterThanks(result) {
     $("thanks-line").textContent = result === "online"
       ? I18N.t("thanks.online")
       : I18N.t("thanks.offline");
     $("thanks-stats").textContent = "";
     show("s-thanks");
-    // optional live counter (only when endpoint configured & online)
     if (window.APP_CONFIG.ENDPOINT_URL && result === "online") {
       try {
         const r = await fetch(window.APP_CONFIG.ENDPOINT_URL + "?stats=1");
@@ -234,8 +336,6 @@
     navigator.serviceWorker.register("sw.js").catch(() => {});
   }
   window.addEventListener("load", () => {
-    // Preload all paintings in the background so the app works fully offline
-    // afterwards (hotel-WiFi-then-venue scenario). Gentle: 1 image per 250 ms.
     let n = 1, kind = 0;
     const kinds = ["narrative", "literal", "ancient", "baseline"];
     const timer = setInterval(() => {

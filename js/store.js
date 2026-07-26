@@ -64,9 +64,7 @@
       ...data,
       uuid: uuid(),
       timestamp: new Date().toISOString(),
-      offline_queued: false,
-      user_agent: navigator.userAgent,
-      page_lang: navigator.language || ""
+      offline_queued: false
     };
     if (await send(payload)) { updateQueueNote(); return "online"; }
     const q = readQueue();

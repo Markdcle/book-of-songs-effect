@@ -10,11 +10,11 @@
         kicker: "DH2026 · LIVE EXPERIMENT",
         title: "Feel the Poetry",
         intro1: "Three thousand years ago, Chinese poets sang of love, longing and war in the <i>Shijing</i> (诗经), the Book of Songs.",
-        intro2: "We asked AI to <b>paint</b> these untranslatable poems — no words, only feeling. Your impressions become live data in our research.",
+        intro2: "We asked AI to visualize how these poems carry meaning and emotion across languages. Your responses help us compare different visual interpretations.",
         start: "Draw Your Poem",
         researchTitle: "Academic Research Study",
-        researchBody: "This exhibit is part of an academic research project (DH2026). Participation is <b>fully anonymous</b> — we collect no names, accounts, or any personally identifying information. Responses are stored securely, analysed only in aggregate, and may be reported in research publications. You may stop at any time.",
-        consent: "Anonymous · about 2 minutes · no knowledge of Chinese needed.<br>By taking part you consent to the research use described above."
+        researchBody: "This exhibit is part of an academic research project (DH2026). We do not ask for your name, account, or contact details. Your responses are stored securely, analysed only in aggregate, and may be reported in research publications. Participation is voluntary, and you may stop at any time.",
+        consent: "About 3 minutes · no knowledge of Chinese needed.<br>By taking part you consent to the research use described above."
       },
       draw: {
         title: "The poem chooses you",
@@ -33,20 +33,35 @@
         next: "Compare Two Visions"
       },
       compare: {
-        step: "③ Two visions of this poem",
+        step: "③ Comparison {current} of {total}",
         title: "Which image better captures the poem’s poetic mood and imagery?",
         imageA: "Image A captures it better",
         imageB: "Image B captures it better",
-        neither: "Neither quite works",
-        fit: "How well does this image merge scene and feeling?",
-        resonance: "How strongly does it resonate with you, across cultures?",
-        notAtAll: "Not at all",
-        perfectly: "Perfectly",
-        deeply: "Deeply",
-        next: "Almost Done"
+        imageAAlt: "Comparison image A",
+        imageBAlt: "Comparison image B",
+        neither: "No clear preference",
+        nextComparison: "Next comparison",
+        nextRatings: "Continue to ratings",
+        visualCoherence: "How visually coherent is this image as a whole?",
+        affectiveFidelity: "How well does this image preserve the poem’s emotional atmosphere?",
+        semanticFidelity: "How accurately does this image depict the poem’s key imagery and events?",
+        notCoherent: "Not coherent",
+        veryCoherent: "Very coherent",
+        notFaithful: "Not faithful",
+        veryFaithful: "Very faithful",
+        notAccurate: "Not accurate",
+        veryAccurate: "Very accurate"
+      },
+      rating: {
+        step: "④ Rate image {current} of {total}",
+        title: "Please rate image {current} of {total}.",
+        hint: "Please consider this image on its own.",
+        imageAlt: "Image to rate",
+        nextImage: "Next image",
+        next: "Continue"
       },
       reflect: {
-        step: "④ One last thing (optional)",
+        step: "⑤ Final reflection (optional)",
         remind: "What does this remind you of?",
         placeholder: "A memory, a place, a feeling…",
         familiarity: "How familiar are you with classical Chinese poetry?",
@@ -63,6 +78,7 @@
         contactTitle: "Contact the research team",
         contactInstruction: "Long-press the QR code to recognize it in WeChat.",
         qrAlt: "WeChat contact QR code",
+        emailLabel: "✉ Email",
         again: "Draw Again"
       },
       status: {
@@ -78,11 +94,11 @@
         kicker: "DH2026 · 现场实验",
         title: "感受诗意",
         intro1: "三千年前，中国诗人在《诗经》中吟唱爱情、思念与战争。",
-        intro2: "我们让 AI 将这些难以言传的诗句绘成图像——不借助文字，只呈现感受。你的直觉将成为本研究的实时数据。",
+        intro2: "我们让 AI 将诗歌中的语义与情感转化为图像。你的回答将帮助我们比较不同的视觉诠释方式。",
         start: "抽一张诗签",
         researchTitle: "学术研究",
-        researchBody: "本展项属于 DH2026 学术研究项目。参与过程<b>完全匿名</b>：我们不收集姓名、账号或任何可识别个人身份的信息。回答将被安全保存，仅用于汇总分析，并可能写入研究论文。你可以随时退出。",
-        consent: "匿名参与 · 约 2 分钟 · 无需具备古典诗歌知识。<br>继续参与即表示你同意上述研究用途。"
+        researchBody: "本展项属于 DH2026 学术研究项目。我们不会询问你的姓名、账号或联系方式。回答将被安全保存，仅用于汇总分析，并可能写入研究论文。参与完全自愿，你可以随时退出。",
+        consent: "约 3 分钟 · 无需具备古典诗歌知识。<br>继续参与即表示你同意上述研究用途。"
       },
       draw: {
         title: "诗歌选择了你",
@@ -101,20 +117,35 @@
         next: "比较两种画意"
       },
       compare: {
-        step: "③ 同一首诗的两种图景",
+        step: "③ 第 {current} 轮，共 {total} 轮",
         title: "哪一幅更能传达诗中的意境？",
         imageA: "图像 A 更贴合",
         imageB: "图像 B 更贴合",
-        neither: "两幅都不太贴合",
-        fit: "这幅图像在多大程度上做到了情景交融？",
-        resonance: "这幅图像在多大程度上引发了你的文化共鸣？",
-        notAtAll: "完全没有",
-        perfectly: "非常贴合",
-        deeply: "非常强烈",
-        next: "下一步"
+        imageAAlt: "对比图像 A",
+        imageBAlt: "对比图像 B",
+        neither: "两者无明显差异",
+        nextComparison: "下一轮比较",
+        nextRatings: "继续评价图像",
+        visualCoherence: "整幅图像在视觉上有多连贯？",
+        affectiveFidelity: "这幅图像在多大程度上保留了诗歌的情感氛围？",
+        semanticFidelity: "这幅图像在多大程度上准确呈现了诗中的关键意象与事件？",
+        notCoherent: "完全不连贯",
+        veryCoherent: "非常连贯",
+        notFaithful: "完全不忠实",
+        veryFaithful: "非常忠实",
+        notAccurate: "完全不准确",
+        veryAccurate: "非常准确"
+      },
+      rating: {
+        step: "④ 评价第 {current} 幅图像，共 {total} 幅",
+        title: "请评价第 {current} 幅图像，共 {total} 幅。",
+        hint: "请只依据当前图像作答。",
+        imageAlt: "待评价图像",
+        nextImage: "下一幅图像",
+        next: "继续"
       },
       reflect: {
-        step: "④ 最后一个问题（可选）",
+        step: "⑤ 最后补充（可选）",
         remind: "这让你想起了什么？",
         placeholder: "一段记忆、一个地方、一种感受……",
         familiarity: "你对中国古典诗歌有多熟悉？",
@@ -131,6 +162,7 @@
         contactTitle: "联系研究团队",
         contactInstruction: "长按二维码，在微信中识别并添加好友。",
         qrAlt: "微信联系二维码",
+        emailLabel: "✉ 邮箱",
         again: "再抽一张"
       },
       status: {
